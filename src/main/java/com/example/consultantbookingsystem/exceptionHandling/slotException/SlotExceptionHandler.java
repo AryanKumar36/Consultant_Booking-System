@@ -1,6 +1,6 @@
 package com.example.consultantbookingsystem.exceptionHandling.slotException;
 
-import com.example.consultantbookingsystem.exceptionHandling.userException.UserErrorResponse;
+import com.example.consultantbookingsystem.exceptionHandling.userException.UserNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +17,13 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class SlotExceptionHandler {
 
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<SlotErrorResponse> handleSlotNotFoundException(UserNotFoundException ex) {
+        List<String> errorMessages = List.of(ex.getMessage());
+        SlotErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", errorMessages);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
     //For validators
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
