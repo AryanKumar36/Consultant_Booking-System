@@ -40,7 +40,6 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-
     public User()
     {
 
@@ -100,9 +99,6 @@ public class User {
     }
 
 
-
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -114,8 +110,5 @@ public class User {
                 ", role=" + role +
                 '}';
     }
-}
-enum Role{
-    CLIENT, CONSULTANT
 }
 
