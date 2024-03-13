@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class UserNotFoundExceptionHandler {
+public class UserExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -26,9 +26,9 @@ public class UserNotFoundExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(UserException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<UserErrorResponse> handleUserNotFoundException(UserNotFoundException ex) {
+    public ResponseEntity<UserErrorResponse> handleUserNotFoundException(UserException ex) {
         List<String> errorMessages = List.of(ex.getMessage());
         UserErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, "Not Found", errorMessages);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
