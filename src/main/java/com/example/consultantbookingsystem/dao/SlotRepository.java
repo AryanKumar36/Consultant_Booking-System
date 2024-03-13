@@ -18,4 +18,7 @@ public interface SlotRepository extends JpaRepository<Slot, Long> {
                                          @Param("dayOfWeek") String dayOfWeek,
                                          @Param("newStartTime") Time newStartTime,
                                          @Param("newEndTime") Time newEndTime);
+
+    @Query("SELECT s FROM Slot s WHERE s.consultantId = :consultantId")
+    List<Slot> findByConsultantId(@Param("consultantId") Long consultantId);
 }
